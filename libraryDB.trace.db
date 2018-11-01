@@ -1,0 +1,9 @@
+2018-11-01 14:33:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CLIENTS" not found; SQL statement:
+DROP TABLE `CLIENTS`  [42102-193]
+2018-11-01 14:33:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CARS" not found; SQL statement:
+DROP TABLE `CARS`  [42102-193]
+2018-11-01 14:33:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SEGMENTS" not found; SQL statement:
+DROP TABLE `SEGMENTS`  [42102-193]
