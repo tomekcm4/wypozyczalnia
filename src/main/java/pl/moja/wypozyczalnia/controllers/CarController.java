@@ -63,9 +63,12 @@ public class CarController {
 			@Override
 			public void changed(ObservableValue arg0, Object arg1, Object arg2) {
 
+				if (basepriceTextField.getText() != null && !basepriceTextField.getText().isEmpty()) 
+				
 				priceTextField.textProperty().setValue(
 						String.valueOf((int) daysSlider.getValue() * Integer.parseInt(basepriceTextField.getText())));
-
+				
+				
 			}
 
 		});
@@ -91,13 +94,15 @@ public class CarController {
 		this.titleTextField.textProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().titleProperty());
 		this.descTextArea.textProperty()
 				.bindBidirectional(this.carModel.getCarFxObjectProperty().descriptionProperty());
-		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
+		
 		this.vinTextField.textProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().vinProperty());
 
 		this.priceTextField.textProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().priceProperty(),
 				new NumberStringConverter());
 		this.basepriceTextField.textProperty().bindBidirectional(
 				this.carModel.getCarFxObjectProperty().basepriceProperty(), new NumberStringConverter());
+		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
+		
 		// this.priceTextField.textProperty().unbindBidirectional(this.carModel.getCarFxObjectProperty().priceProperty());
 		this.releaseDatePicker.valueProperty()
 				.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());
@@ -119,7 +124,7 @@ public class CarController {
 		this.priceTextField.clear();
 		this.basepriceTextField.clear();
 		this.descTextArea.clear();
-		this.daysSlider.setValue(1);
+		//this.daysSlider.setValue(1);
 		this.vinTextField.clear();
 		this.releaseDatePicker.getEditor().clear();
 	}
