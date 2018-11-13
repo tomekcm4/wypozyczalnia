@@ -14,7 +14,9 @@ public class CarFx {
     private SimpleStringProperty description = new SimpleStringProperty();
     private ObjectProperty<LocalDate> releaseDate = new SimpleObjectProperty<>();
     private SimpleStringProperty vin = new SimpleStringProperty();
-    private IntegerProperty rating = new SimpleIntegerProperty();
+    private IntegerProperty days = new SimpleIntegerProperty();
+    private IntegerProperty price = new SimpleIntegerProperty();
+    private IntegerProperty baseprice = new SimpleIntegerProperty();
     private ObjectProperty<LocalDate> addedDate = new SimpleObjectProperty(LocalDate.now());
 
     public int getId() {
@@ -89,17 +91,46 @@ public class CarFx {
         this.vin.set(vin);
     }
 
-    public int getRating() {
-        return rating.get();
+    public int getDays() {
+        return days.get();
     }
 
-    public IntegerProperty ratingProperty() {
-        return rating;
+    public IntegerProperty daysProperty() {
+        return days;
     }
 
-    public void setRating(int rating) {
-        this.rating.set(rating);
+    public void setDays(int days) {
+        this.days.set(days);
     }
+    
+    
+    public int getPrice() {
+        return price.get();
+    }
+
+    public IntegerProperty priceProperty() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price.set(price);
+    }
+    
+    
+    public int getBasePrice() {
+        return baseprice.get();
+    }
+
+    public IntegerProperty basepriceProperty() {
+        return baseprice;
+    }
+
+    public void setBasePrice(int baseprice) {
+        this.baseprice.set(baseprice);
+    }
+    
+    
+    
 
     public LocalDate getReleaseDate() {
         return releaseDate.get();
@@ -135,7 +166,7 @@ public class CarFx {
                 ", description=" + description.get() +
                 ", releaseDate=" + releaseDate.get() +
                 ", vin=" + vin.get() +
-                ", rating=" + rating.get() +
+                ", days=" + days.get() +
                 ", addedDate=" + addedDate.get() +
                 '}';
     }

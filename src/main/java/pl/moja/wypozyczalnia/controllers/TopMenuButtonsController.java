@@ -1,6 +1,7 @@
 package pl.moja.wypozyczalnia.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 
 
@@ -8,12 +9,14 @@ public class TopMenuButtonsController {
 
     private static final String LIBRARY_FXML = "/fxml/Library.fxml";
     private static final String LIST_CARS_FXML = "/fxml/ListCars.fxml";
-    private static final String STATISTICS_FXML = "/fxml/Statistics.fxml";
+    private static final String HISTORY_FXML = "/fxml/History.fxml";
     private static final String ADD_CAR_FXML = "/fxml/AddCar.fxml";
     private static final String ADD_SEGMENT_FXML = "/fxml/AddSegment.fxml";
     private static final String ADD_CLIENT_FXML = "/fxml/AddClient.fxml";
 
     private MainController mainController;
+    
+    
 
     @FXML
     private ToggleGroup toggleButtons;
@@ -30,7 +33,7 @@ public class TopMenuButtonsController {
 
     @FXML
     public void openStatistics() {
-        mainController.setCenter(STATISTICS_FXML);
+        mainController.setCenter(HISTORY_FXML);
     }
 
     public void setMainController(MainController mainController) {

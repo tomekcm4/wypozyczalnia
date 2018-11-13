@@ -9,22 +9,30 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #E0E6F8;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.moja.wypozyczalnia.controllers.SegmentController">
-   <children>
-      <HBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #E0E6F8;">
-         <children>
-            <Label text="%add.segment" />
-            <TextField fx:id="segmentTextField" />
-            <Button fx:id="addSegmentButton" mnemonicParsing="false" onAction="#addSegmentOnAction" text="%add.button" />
-            <Label text="%choose.segment" />
-            <ComboBox fx:id="segmentComboBox" onAction="#onActionComboBox" prefWidth="150.0" />
-            <Button fx:id="editSegmentButton" mnemonicParsing="false" onAction="#onActionEditSegment" text="%edit.button" />
-            <Button fx:id="deleteSegmentButton" mnemonicParsing="false" onAction="#onActionDeleteButton" text="%delete.button" />
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </HBox>
-      <TreeView fx:id="segmentTreeView" prefWidth="200.0" showRoot="false" style="-fx-background-color: #E0E6F8;" />
-   </children>
+<VBox minHeight="-Infinity" minWidth="-Infinity"
+	style="-fx-background-color: #E0E6F8;" xmlns="http://javafx.com/javafx/8.0.60"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.moja.wypozyczalnia.controllers.SegmentController">
+	<children>
+		<HBox alignment="TOP_CENTER" spacing="20.0"
+			style="-fx-background-color: #E0E6F8;">
+			<children>
+				<Label text="%add.segment" />
+				<TextField fx:id="segmentTextField" />
+				<Button fx:id="addSegmentButton" mnemonicParsing="false"
+					onAction="#addSegmentOnAction" text="%add.button" />
+				<Label text="%choose.segment" />
+				<ComboBox fx:id="segmentComboBox" onAction="#onActionComboBox"
+					prefWidth="150.0" />
+				<Button fx:id="editSegmentButton" mnemonicParsing="false"
+					onAction="#onActionEditSegment" text="%edit.button" />
+				<Button fx:id="deleteSegmentButton" mnemonicParsing="false"
+					onAction="#onActionDeleteButton" text="%delete.button" />
+			</children>
+			<padding>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+			</padding>
+		</HBox>
+		<TreeView fx:id="segmentTreeView" prefWidth="200.0" showRoot="false"
+			style="-fx-background-color: #E0E6F8;" />
+	</children>
 </VBox>

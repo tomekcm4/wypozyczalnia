@@ -35,11 +35,17 @@ public class Car implements BaseModel{
     @DatabaseField(columnName = "VIN")
     private String vin;
 
-    @DatabaseField(columnName = "RATING", width = 1)
-    private int rating;
+    @DatabaseField(columnName = "DAYS", width = 1)
+    private int days;
 
     @DatabaseField(columnName = "ADDED_DATE")
     private Date addedDate;
+    
+    @DatabaseField(columnName = "PRICE")
+    private int price;
+   
+    @DatabaseField(columnName = "BASEPRICE")
+    private int baseprice;
 
     public int getId() {
         return id;
@@ -88,13 +94,31 @@ public class Car implements BaseModel{
     public void setVin(String vin) {
         this.vin = vin;
     }
-
-    public int getRating() {
-        return rating;
+    
+    public int getPrice() {
+        return price;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setPrice(int price) {
+        this.price = price;
+    }
+    
+    
+    public int getBasePrice() {
+        return baseprice;
+    }
+
+    public void setBasePrice(int baseprice) {
+        this.baseprice = baseprice;
+    }
+    
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
     }
 
     public Date getAddedDate() {

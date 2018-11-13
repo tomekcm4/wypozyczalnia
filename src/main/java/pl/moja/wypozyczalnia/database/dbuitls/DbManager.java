@@ -18,7 +18,7 @@ public class DbManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DbManager.class);
 
-    private static final String JDBC_DRIVER_HD = "jdbc:h2:./libraryDB";
+    private static final String JDBC_DRIVER_HD = "jdbc:h2:C:\\Users\\mlynarst\\eclipse-workspace\\ProjektWypozyczalnia3\\MojaWypozyczalnia/database/rentalDB";
     private static final String USER = "admin";
     private static final String PASS = "admin";
 
@@ -26,7 +26,7 @@ public class DbManager {
 
     public static void initDatabase(){
         createConnectionSource();
-        dropTable(); //zakomentuj, żeby nie kasować za każym razem tabel w bazie
+     //  dropTable(); //zakomentuj, żeby nie kasować za każym razem tabel w bazie
         createTable();
         closeConnectionSource();
     }

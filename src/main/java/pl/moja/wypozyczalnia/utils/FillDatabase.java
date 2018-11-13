@@ -23,7 +23,9 @@ public class FillDatabase {
         car1.setClient(client1);
         car1.setTitle("BMW 5 520");
         car1.setVin("K3322KF234SD88");
-        car1.setRating(4);
+        car1.setPrice(200);
+        car1.setBasePrice(30);
+        car1.setDays(4);
         car1.setReleaseDate(new Date());
         car1.setAddedDate(new Date());
         car1.setDescription("rocznik 2015, 2.5 290 KM benzyna");
@@ -50,7 +52,9 @@ public class FillDatabase {
         car2.setClient(client2);
         car2.setTitle("Opel Insignia");
         car2.setVin("13322DK334SD88");
-        car2.setRating(5);
+        car2.setPrice(300);
+        car2.setBasePrice(300);
+        car2.setDays(5);
         car2.setReleaseDate(new Date());
         car2.setAddedDate(new Date());
         car2.setDescription("Rocznik 2016, 2.0 190 KM diesel");
@@ -65,7 +69,9 @@ public class FillDatabase {
         car3.setClient(client3);
         car3.setTitle("Ford Focus");
         car3.setVin("93822KF23K7S78");
-        car3.setRating(5);
+        car3.setPrice(400);
+        car3.setBasePrice(300);
+        car3.setDays(5);
         car3.setReleaseDate(new Date());
         car3.setAddedDate(new Date());
         car3.setDescription("Rocznik 2018, 1.8 200 KM benzyna");
@@ -78,7 +84,9 @@ public class FillDatabase {
         car4.setClient(client4);
         car4.setTitle("Renault Megane");
         car4.setVin("1L32KF234SD30");
-        car4.setRating(3);
+        car4.setPrice(600);
+        car4.setBasePrice(300);
+        car4.setDays(3);
         car4.setReleaseDate(new Date());
         car4.setAddedDate(new Date());
         car4.setDescription("Rocznika 2013, 2.0 150 KM benzyna");

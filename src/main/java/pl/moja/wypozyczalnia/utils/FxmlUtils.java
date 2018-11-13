@@ -2,21 +2,23 @@ package pl.moja.wypozyczalnia.utils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
+import javafx.util.Pair;
+import pl.moja.wypozyczalnia.controllers.MainController;
 
 import java.util.ResourceBundle;
 
 
 public class FxmlUtils {
 
-    public static Pane fxmlLoader(String fxmlPath) {
+    public static <T> Pair<Pane, T>  fxmlLoader(String fxmlPath) {
         FXMLLoader loader = new FXMLLoader(FxmlUtils.class.getResource(fxmlPath));
         loader.setResources(getResourceBundle());
         try {
-            return loader.load();
+            return new Pair<>(loader.load(),loader.getController());
         } catch (Exception e) {
            DialogsUtils.errorDialog(e.getMessage());
         }
-        return null;
+        return new Pair<>(null,null);
     }
 
     public static FXMLLoader getLoader(String fxmlPath) {

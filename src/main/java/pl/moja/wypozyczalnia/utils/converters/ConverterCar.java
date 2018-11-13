@@ -12,8 +12,10 @@ public class ConverterCar {
         car.setId(carFx.getId());
         car.setTitle(carFx.getTitle());
         car.setDescription(carFx.getDescription());
-        car.setRating(carFx.getRating());
+        car.setDays(carFx.getDays());
         car.setVin(carFx.getVin());
+        car.setPrice(carFx.getPrice());
+        car.setBasePrice(carFx.getBasePrice());
         car.setReleaseDate(Utils.convertToDate(carFx.getReleaseDate()));
         car.setAddedDate(Utils.convertToDate(carFx.getAddedDate()));
         return  car;
@@ -24,8 +26,10 @@ public class ConverterCar {
         carFx.setId(car.getId());
         carFx.setTitle(car.getTitle());
         carFx.setDescription(car.getDescription());
-        carFx.setRating(car.getRating());
+        carFx.setDays(car.getDays());
         carFx.setVin(car.getVin());
+        carFx.setPrice(car.getPrice());
+        carFx.setBasePrice(car.getBasePrice());
         carFx.setReleaseDate(Utils.convertToLocalDate(car.getReleaseDate()));
         carFx.setClientFx(ConverterClient.convertToClientFx(car.getClient()));
         carFx.setSegmentFx(ConverterSegment.convertToSegmentFx(car.getSegment()));
