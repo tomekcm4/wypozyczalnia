@@ -135,6 +135,7 @@ public class ListCarsController {
 						CarController controller = loader.getController();
 						controller.getCarModel().setCarFxObjectProperty(item);
 						controller.bindings();
+						
 						Stage stage = new Stage();
 						stage.setScene(scene);
 						stage.initModality(Modality.APPLICATION_MODAL);

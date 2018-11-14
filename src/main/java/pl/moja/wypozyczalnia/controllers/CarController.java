@@ -103,7 +103,6 @@ public class CarController {
 				this.carModel.getCarFxObjectProperty().basepriceProperty(), new NumberStringConverter());
 		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
 		
-		// this.priceTextField.textProperty().unbindBidirectional(this.carModel.getCarFxObjectProperty().priceProperty());
 		this.releaseDatePicker.valueProperty()
 				.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());
 	}
@@ -111,22 +110,31 @@ public class CarController {
 	public void addCarOnAction() {
 		try {
 			this.carModel.saveCarInDataBase();
+		
 			clearFields();
+		
+			
+			
+			
 		} catch (ApplicationException e) {
 			DialogsUtils.errorDialog(e.getMessage());
 		}
+		
+		
 	}
 
 	private void clearFields() {
 		this.clientComboBox.getSelectionModel().clearSelection();
 		this.segmentComboBox.getSelectionModel().clearSelection();
+		this.releaseDatePicker.getEditor().clear();
 		this.titleTextField.clear();
 		this.priceTextField.clear();
 		this.basepriceTextField.clear();
 		this.descTextArea.clear();
-		//this.daysSlider.setValue(1);
 		this.vinTextField.clear();
-		this.releaseDatePicker.getEditor().clear();
+		this.daysSlider.setValue(1);
+		
+		
 	}
 
 	public CarModel getCarModel() {
