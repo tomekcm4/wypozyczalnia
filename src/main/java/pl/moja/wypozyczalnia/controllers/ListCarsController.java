@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import pl.moja.wypozyczalnia.modelFx.ClientFx;
 import pl.moja.wypozyczalnia.modelFx.CarFx;
 import pl.moja.wypozyczalnia.modelFx.SegmentFx;
@@ -145,11 +146,53 @@ public class ListCarsController {
 			}
 		});
 
-	}
+		
+		clientColumn.setCellFactory(new Callback<TableColumn<CarFx, ClientFx>, TableCell<CarFx, ClientFx>>() {
+			public TableCell<CarFx, ClientFx> call(TableColumn<CarFx, ClientFx> carStringTableColumn) {
+				return new TableCell<CarFx, ClientFx>() {
+					@Override
+					protected void updateItem(ClientFx item, boolean empty) {
+						super.updateItem(item, empty);
 
-//	private TableCell<CarFx,ClientFx> fillTableView() {
+						setText(empty ? "" : getItem().toString());
+						setGraphic(null);
+
+						TableRow<CarFx> currentRow = getTableRow();
+
+						if (!isEmpty()) {
+
+							if (item.getName().equals("EMPTY") || item.getSurname().equals("EMPTY")) {
+								currentRow.setStyle("-fx-background-color:#9ACD32");
+							}
+
+							else {
+								currentRow.setStyle("-fx-background-color:#CD5C5C");
+							}
+
+						}
+					};
+
+				};
+
+			}
+		}
+
+		);
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+
+//	private TableCell<CarFx,String> fillTableView() {
 //
 //		clientColumn.setCellFactory(column -> {
+//			
+//			
 //			return new TableCell<CarFx, String>() {
 //				@Override
 //				protected void updateItem(String item, boolean empty) {

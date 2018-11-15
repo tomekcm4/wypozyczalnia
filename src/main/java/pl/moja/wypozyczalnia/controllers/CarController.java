@@ -8,13 +8,17 @@ import javax.xml.ws.handler.Handler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import pl.moja.wypozyczalnia.database.models.Client;
 import pl.moja.wypozyczalnia.modelFx.ClientFx;
 import pl.moja.wypozyczalnia.modelFx.CarModel;
 import pl.moja.wypozyczalnia.modelFx.SegmentFx;
 import pl.moja.wypozyczalnia.utils.DialogsUtils;
+import pl.moja.wypozyczalnia.utils.FxmlUtils;
 import pl.moja.wypozyczalnia.utils.exceptions.ApplicationException;
 
 public class CarController {
@@ -63,12 +67,11 @@ public class CarController {
 			@Override
 			public void changed(ObservableValue arg0, Object arg1, Object arg2) {
 
-				if (basepriceTextField.getText() != null && !basepriceTextField.getText().isEmpty()) 
-				
-				priceTextField.textProperty().setValue(
-						String.valueOf((int) daysSlider.getValue() * Integer.parseInt(basepriceTextField.getText())));
-				
-				
+				if (basepriceTextField.getText() != null && !basepriceTextField.getText().isEmpty())
+
+					priceTextField.textProperty().setValue(String
+							.valueOf((int) daysSlider.getValue() * Integer.parseInt(basepriceTextField.getText())));
+
 			}
 
 		});
@@ -94,7 +97,7 @@ public class CarController {
 		this.titleTextField.textProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().titleProperty());
 		this.descTextArea.textProperty()
 				.bindBidirectional(this.carModel.getCarFxObjectProperty().descriptionProperty());
-		
+
 		this.vinTextField.textProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().vinProperty());
 
 		this.priceTextField.textProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().priceProperty(),
@@ -102,25 +105,24 @@ public class CarController {
 		this.basepriceTextField.textProperty().bindBidirectional(
 				this.carModel.getCarFxObjectProperty().basepriceProperty(), new NumberStringConverter());
 		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
-		
+
 		this.releaseDatePicker.valueProperty()
 				.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());
 	}
 
 	public void addCarOnAction() {
 		try {
+
 			this.carModel.saveCarInDataBase();
-		
+
 			clearFields();
 		
 			
-			
-			
+
 		} catch (ApplicationException e) {
 			DialogsUtils.errorDialog(e.getMessage());
 		}
-		
-		
+
 	}
 
 	private void clearFields() {
@@ -133,8 +135,7 @@ public class CarController {
 		this.descTextArea.clear();
 		this.vinTextField.clear();
 		this.daysSlider.setValue(1);
-		
-		
+
 	}
 
 	public CarModel getCarModel() {
