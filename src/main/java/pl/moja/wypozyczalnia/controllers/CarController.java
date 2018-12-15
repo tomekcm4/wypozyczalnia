@@ -49,6 +49,7 @@ public class CarController {
 
 	double mulitplier;
 
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
 	public void initialize() {

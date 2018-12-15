@@ -5,9 +5,9 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 
 
-public class TopMenuButtonsController {
+public class BottomButtonsController {
 
-    private static final String LIBRARY_FXML = "/fxml/Library.fxml";
+
     private static final String LIST_CARS_FXML = "/fxml/ListCars.fxml";
     private static final String HISTORY_FXML = "/fxml/History.fxml";
     private static final String ADD_CAR_FXML = "/fxml/AddCar.fxml";
@@ -21,10 +21,7 @@ public class TopMenuButtonsController {
     @FXML
     private ToggleGroup toggleButtons;
 
-    @FXML
-    public void openLibrary() {
-        mainController.setCenter(LIBRARY_FXML);
-    }
+   
 
     @FXML
     public void openListCars() {

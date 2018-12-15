@@ -22,7 +22,7 @@ public class MainController {
 	private BorderPane borderPane;
 
 	@FXML
-	private TopMenuButtonsController topMenuButtonsController;
+	private BottomButtonsController BottomButtonsController;
 
 	private Runnable changeLanguage;
 	
@@ -30,7 +30,7 @@ public class MainController {
 
 	@FXML
 	private void initialize() {
-		topMenuButtonsController.setMainController(this);
+		BottomButtonsController.setMainController(this);
 	}
 
 	public void setCenter(String fxmlPath) {

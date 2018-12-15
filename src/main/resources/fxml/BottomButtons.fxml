@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.moja.wypozyczalnia.controllers.TopMenuButtonsController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.moja.wypozyczalnia.controllers.BottomButtonsController">
 	<children>
 		<ToggleButton mnemonicParsing="false" onAction="#openListCars" prefHeight="80.0" prefWidth="150.0" style="-fx-background-color: #893f56;" text="%list.cars" textFill="#0308ff">
 			<toggleGroup>

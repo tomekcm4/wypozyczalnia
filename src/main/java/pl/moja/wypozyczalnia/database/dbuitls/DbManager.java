@@ -26,7 +26,7 @@ public class DbManager {
 
     public static void initDatabase(){
         createConnectionSource();
-     //  dropTable(); //zakomentuj, żeby nie kasować za każym razem tabel w bazie
+     //  dropTable(); //kasuje tabele w bazie -- > comment out 
         createTable();
         closeConnectionSource();
     }

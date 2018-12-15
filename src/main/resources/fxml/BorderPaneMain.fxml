@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -8,17 +9,20 @@
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.moja.wypozyczalnia.controllers.MainController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.moja.wypozyczalnia.controllers.MainController">
    <bottom>
 		<VBox prefHeight="126.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
-			<fx:include fx:id="topMenuButtons" source="TopMenuButtons.fxml" />
+			<fx:include fx:id="BottomButtons" source="BottomButtons.fxml" />
          <padding>
             <Insets left="155.0" />
          </padding>
+         <effect>
+            <Glow />
+         </effect>
 		</VBox>
    </bottom>
    <top>
@@ -36,7 +40,7 @@
 									<ToggleGroup fx:id="styleGroup" />
 								</toggleGroup>
 							</RadioMenuItem>
-							<RadioMenuItem mnemonicParsing="false" onAction="#setEn" selected="true" text="%JezykAngielski" toggleGroup="$styleGroup" />
+							<RadioMenuItem mnemonicParsing="false" onAction="#setEn" text="%JezykAngielski" toggleGroup="$styleGroup" />
 							<SeparatorMenuItem mnemonicParsing="false" />
 							<CheckMenuItem mnemonicParsing="false" onAction="#setAlwaysOnTop" text="%alwaysOnTop" />
 						</items>
@@ -47,9 +51,12 @@
 						</items>
 					</Menu>
 				</menus>
-				<effect>
-					<Reflection />
-				</effect>
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor>
 			</MenuBar>
    </top>
+   <cursor>
+      <Cursor fx:constant="CLOSED_HAND" />
+   </cursor>
 </BorderPane>
