@@ -1,10 +1,12 @@
 package pl.moja.wypozyczalnia.controllers;
 
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.DayOfWeek;
+
 import java.util.ArrayList;
-
+import java.util.List;
 import javax.xml.ws.handler.Handler;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -15,6 +17,8 @@ import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import pl.moja.wypozyczalnia.database.models.Client;
 import pl.moja.wypozyczalnia.modelFx.ClientFx;
+import pl.moja.wypozyczalnia.modelFx.ListCarsModel;
+import pl.moja.wypozyczalnia.modelFx.CarFx;
 import pl.moja.wypozyczalnia.modelFx.CarModel;
 import pl.moja.wypozyczalnia.modelFx.SegmentFx;
 import pl.moja.wypozyczalnia.utils.DialogsUtils;
@@ -49,7 +53,8 @@ public class CarController {
 
 	double mulitplier;
 
-	
+	private List<CarFx> carFxList = new ArrayList<>();
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
 	public void initialize() {
@@ -60,6 +65,7 @@ public class CarController {
 		} catch (ApplicationException e) {
 			DialogsUtils.errorDialog(e.getMessage());
 		}
+
 		bindings();
 		validation();
 
@@ -107,8 +113,35 @@ public class CarController {
 				this.carModel.getCarFxObjectProperty().basepriceProperty(), new NumberStringConverter());
 		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
 
+		for (CarFx lcs : carFxList) {
+
+			if (lcs.getVin().equals(vinTextField.getText())) { // I am checking if car is already reserved by someone -
+																// in practice it search through list of rents
+																// comparing VIN number (VIN number of car rented and
+																// VIN car I want to make a new reservation)
+
+				for (int i = 0; i < lcs.getDays(); i++) {
+
+					releaseDatePicker.setDayCellFactory(picker -> new DateCell() {
+						public void updateItem(LocalDate date, boolean empty) {
+							super.updateItem(date, empty);
+							LocalDate getReleaseDate = lcs.getReleaseDate();
+
+							setDisable(empty || date == getReleaseDate);
+							lcs.getReleaseDate().plusDays(1);
+
+						}
+
+					});
+
+					i++;
+				}
+			}
+		}
+
 		this.releaseDatePicker.valueProperty()
 				.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());
+
 	}
 
 	public void addCarOnAction() {
@@ -117,8 +150,6 @@ public class CarController {
 			this.carModel.saveCarInDataBase();
 
 			clearFields();
-		
-			
 
 		} catch (ApplicationException e) {
 			DialogsUtils.errorDialog(e.getMessage());
