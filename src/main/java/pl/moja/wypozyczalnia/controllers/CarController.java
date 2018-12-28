@@ -7,6 +7,10 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.handler.Handler;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.WeakInvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -25,7 +29,7 @@ import pl.moja.wypozyczalnia.utils.DialogsUtils;
 import pl.moja.wypozyczalnia.utils.FxmlUtils;
 import pl.moja.wypozyczalnia.utils.exceptions.ApplicationException;
 
-public class CarController {
+public class CarController implements InvalidationListener {
 
 	@FXML
 	private Button addButton;
@@ -113,35 +117,38 @@ public class CarController {
 				this.carModel.getCarFxObjectProperty().basepriceProperty(), new NumberStringConverter());
 		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
 
-		for (CarFx lcs : carFxList) {
 
-			if (lcs.getVin().equals(vinTextField.getText())) { // I am checking if car is already reserved by someone -
-																// in practice it search through list of rents
-																// comparing VIN number (VIN number of car rented and
-																// VIN car I want to make a new reservation)
+		
+		
+		releaseDatePicker.setDayCellFactory(picker -> new DateCell() {
 
-				for (int i = 0; i < lcs.getDays(); i++) {
+			final InvalidationListener l = o -> {
+				LocalDate item = getItem();
+				setDisable(item == null || isBooked(item));
+			};
+			final WeakInvalidationListener listener = new WeakInvalidationListener(l);
 
-					releaseDatePicker.setDayCellFactory(picker -> new DateCell() {
-						public void updateItem(LocalDate date, boolean empty) {
-							super.updateItem(date, empty);
-							LocalDate getReleaseDate = lcs.getReleaseDate();
-
-							setDisable(empty || date == getReleaseDate);
-							lcs.getReleaseDate().plusDays(1);
-
-						}
-
-					});
-
-					i++;
-				}
+			{
+				vinTextField.textProperty().addListener(listener); // listen to changes of the vin text
 			}
-		}
+
+			@Override
+			public void updateItem(LocalDate date, boolean empty) {
+				super.updateItem(date, empty);
+				setDisable(true);
+				l.invalidated(null);
+			}
+
+		});
 
 		this.releaseDatePicker.valueProperty()
-				.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());
+		.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());	
 
+	}
+
+	private boolean isBooked(LocalDate date) {
+		final String vinInput = vinTextField.getText();
+		return carFxList.stream().anyMatch(lcs -> vinInput.equals(lcs.getVin()) && date.equals(lcs.getReleaseDate()));
 	}
 
 	public void addCarOnAction() {
@@ -172,5 +179,11 @@ public class CarController {
 
 	public CarModel getCarModel() {
 		return carModel;
+	}
+
+	@Override
+	public void invalidated(Observable observable) {
+		// TODO Auto-generated method stub
+
 	}
 }
