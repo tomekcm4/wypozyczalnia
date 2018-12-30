@@ -2,12 +2,12 @@ package pl.moja.wypozyczalnia.controllers;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.time.DayOfWeek;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.ws.handler.Handler;
-
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.WeakInvalidationListener;
@@ -20,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import pl.moja.wypozyczalnia.database.models.Client;
+import pl.moja.wypozyczalnia.database.models.Car;
 import pl.moja.wypozyczalnia.modelFx.ClientFx;
 import pl.moja.wypozyczalnia.modelFx.ListCarsModel;
 import pl.moja.wypozyczalnia.modelFx.CarFx;
@@ -58,6 +59,8 @@ public class CarController implements InvalidationListener {
 	double mulitplier;
 
 	private List<CarFx> carFxList = new ArrayList<>();
+	private List<Car> Car = new ArrayList<>();
+	private List<ListCarsController> lcl = new ArrayList<>();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
@@ -117,38 +120,44 @@ public class CarController implements InvalidationListener {
 				this.carModel.getCarFxObjectProperty().basepriceProperty(), new NumberStringConverter());
 		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
 
+		List<LocalDate> unavailableDates = new ArrayList<>();
+		unavailableDates.add(LocalDate.parse("2018-12-31"));
 
-		
-		
-		releaseDatePicker.setDayCellFactory(picker -> new DateCell() {
+		for (CarFx lcs : carFxList) {
 
-			final InvalidationListener l = o -> {
-				LocalDate item = getItem();
-				setDisable(item == null || isBooked(item));
-			};
-			final WeakInvalidationListener listener = new WeakInvalidationListener(l);
+			LocalDate da = lcs.getReleaseDate();
+			int nr = lcs.getDays(); // number of days for which car is reserved
 
-			{
-				vinTextField.textProperty().addListener(listener); // listen to changes of the vin text
+			for (int i = 1; i < nr; i++) {
+
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+				unavailableDates.add(da);
+				da.plusDays(i);
 			}
 
+		}
+
+		releaseDatePicker.setDayCellFactory(picker -> new DateCell() {
 			@Override
 			public void updateItem(LocalDate date, boolean empty) {
 				super.updateItem(date, empty);
-				setDisable(true);
-				l.invalidated(null);
-			}
+				LocalDate today = LocalDate.now();
 
+				setDisable(empty || date.compareTo(today) < 0); // I am also excluding all days in the past
+				if (date != null && !empty) {
+
+					// Compare date to List
+					if (unavailableDates.contains(date)) {
+						setDisable(true);
+
+					}
+				}
+			}
 		});
 
 		this.releaseDatePicker.valueProperty()
-		.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());	
+				.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());
 
-	}
-
-	private boolean isBooked(LocalDate date) {
-		final String vinInput = vinTextField.getText();
-		return carFxList.stream().anyMatch(lcs -> vinInput.equals(lcs.getVin()) && date.equals(lcs.getReleaseDate()));
 	}
 
 	public void addCarOnAction() {

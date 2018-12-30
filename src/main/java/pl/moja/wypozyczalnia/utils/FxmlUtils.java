@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 import pl.moja.wypozyczalnia.controllers.MainController;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -29,6 +30,7 @@ public class FxmlUtils {
 
 
     public static ResourceBundle getResourceBundle() {
+    	
         return ResourceBundle.getBundle("bundles.messages");
     }
 

@@ -28,6 +28,7 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 
+
 		LauncherImpl.launchApplication(Main.class, MyPreloader.class, args);
 		// launch(args);
 
@@ -35,7 +36,9 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		Locale.setDefault(Locale.ENGLISH);
+		
+		
+		//Locale.setDefault(Locale.FRANCE);
 		this.primaryStage = primaryStage;
 		load();
 		this.primaryStage.show();
@@ -47,6 +50,7 @@ public class Main extends Application {
 	}
 
 	private void load() {
+
 
 		Pair<Pane, MainController> paneMainControllerPair = FxmlUtils.fxmlLoader(BORDER_PANE_MAIN_FXML);
 		Pane borderPane = paneMainControllerPair.getKey();
@@ -64,6 +68,7 @@ public class Main extends Application {
 
 	@Override
 	public void init() throws Exception {
+
 
 		// Perform some heavy lifting (i.e. database start, check for application
 		// updates, etc. )
