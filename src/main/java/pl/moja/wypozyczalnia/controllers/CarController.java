@@ -1,5 +1,7 @@
 package pl.moja.wypozyczalnia.controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -121,18 +123,32 @@ public class CarController implements InvalidationListener {
 		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
 
 		List<LocalDate> unavailableDates = new ArrayList<>();
-		unavailableDates.add(LocalDate.parse("2018-12-31"));
+		unavailableDates.add(LocalDate.parse("2018-12-31")); // data wstawiona na probe czy dziala
+
+		vinTextField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+				System.out.println(" Text Changed to  " + newValue + ")\n");
+
+			}
+
+		});
 
 		for (CarFx lcs : carFxList) {
 
-			LocalDate da = lcs.getReleaseDate();
-			int nr = lcs.getDays(); // number of days for which car is reserved
+			if (lcs.getVin().equals(vinTextField.getText())) {
 
-			for (int i = 1; i < nr; i++) {
+				LocalDate da = lcs.getReleaseDate();
+				int nr = lcs.getDays(); // number of days for which car is reserved
 
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-				unavailableDates.add(da);
-				da.plusDays(i);
+				for (int i = 1; i < nr; i++) {
+
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+					unavailableDates.add(da);
+					da.plusDays(i);
+				}
+
 			}
 
 		}
