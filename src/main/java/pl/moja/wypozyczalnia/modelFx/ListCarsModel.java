@@ -44,7 +44,16 @@ public class ListCarsModel {
 
         initClients();
         initSegment();
+        
+//        for (CarFx car : carFxList) {
+//        	System.out.println(car.getVin());
+//        }
+        
     }
+    
+    
+    
+    
 
     public void filterCarsList() {
         if (getClientFxObjectProperty() != null && getSegmentFxObjectProperty() != null) {

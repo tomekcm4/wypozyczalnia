@@ -24,6 +24,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import pl.moja.wypozyczalnia.database.models.Client;
+import pl.moja.wypozyczalnia.database.dao.CarDao;
 import pl.moja.wypozyczalnia.database.models.Car;
 import pl.moja.wypozyczalnia.modelFx.ClientFx;
 import pl.moja.wypozyczalnia.modelFx.ListCarsModel;
@@ -32,6 +33,7 @@ import pl.moja.wypozyczalnia.modelFx.CarModel;
 import pl.moja.wypozyczalnia.modelFx.SegmentFx;
 import pl.moja.wypozyczalnia.utils.DialogsUtils;
 import pl.moja.wypozyczalnia.utils.FxmlUtils;
+import pl.moja.wypozyczalnia.utils.converters.ConverterCar;
 import pl.moja.wypozyczalnia.utils.exceptions.ApplicationException;
 
 public class CarController implements InvalidationListener {
@@ -59,6 +61,7 @@ public class CarController implements InvalidationListener {
 	private TextField titleTextField;
 
 	private CarModel carModel;
+	private ListCarsModel listCarsModel;
 
 	double mulitplier;
 
@@ -78,6 +81,7 @@ public class CarController implements InvalidationListener {
 
 		bindings();
 		validation();
+		validation2();
 
 		daysSlider.valueProperty().addListener(new ChangeListener() {
 
@@ -101,6 +105,12 @@ public class CarController implements InvalidationListener {
 						.or(this.titleTextField.textProperty().isEmpty()).or(this.descTextArea.textProperty().isEmpty())
 						.or(this.vinTextField.textProperty().isEmpty())
 						.or(this.releaseDatePicker.valueProperty().isNull()));
+
+	}
+
+	private void validation2() {
+		this.releaseDatePicker.disableProperty().bind(this.vinTextField.textProperty().isEmpty());
+
 	}
 
 	public void bindings() {
@@ -123,28 +133,35 @@ public class CarController implements InvalidationListener {
 				this.carModel.getCarFxObjectProperty().basepriceProperty(), new NumberStringConverter());
 		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
 
+		this.releaseDatePicker.valueProperty()
+				.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());
+
 		List<LocalDate> unavailableDates = new ArrayList<>();
-		unavailableDates.add(LocalDate.parse("2019-01-01")); // data wstawiona na probe czy dziala
+		unavailableDates.add(LocalDate.parse("2019-01-01")); // for example
 
 		vinTextField.textProperty().addListener(new ChangeListener<String>() {
+			
+			
+			
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
 				System.out.println(" Text Changed to  " + newValue);
 
-				for (CarFx car : carFxList) {
+				for (CarFx car : carFxList) { // this part of code is not working, programs not iterating through this list
+					System.out.println("check if working"); //nothing happens						
 
-					System.out.println(vinTextField.getText());
+					// System.out.println(vinTextField.getText());
+
+					
 
 					if (car.getVin().equals(newValue)) {
 
 						LocalDate da = car.getReleaseDate();
-						// LocalDate daa = da.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 						int nr = car.getDays(); // number of days for which car is reserved
 
 						for (int i = 0; i < nr - 1; i++) {
 
-							// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 							da = da.plusDays(i);
 							unavailableDates.add(da.plusDays(i));
 						}
@@ -153,30 +170,27 @@ public class CarController implements InvalidationListener {
 
 				}
 
-			}
+				releaseDatePicker.setDayCellFactory(picker -> new DateCell() {
+					@Override
+					public void updateItem(LocalDate date, boolean empty) {
+						super.updateItem(date, empty);
+						LocalDate today = LocalDate.now();
 
-		});
+						setDisable(empty || date.compareTo(today) < 0); // I am also excluding all days in the past
+						if (date != null && !empty) {
 
-		releaseDatePicker.setDayCellFactory(picker -> new DateCell() {
-			@Override
-			public void updateItem(LocalDate date, boolean empty) {
-				super.updateItem(date, empty);
-				LocalDate today = LocalDate.now();
+							// Compare date to List
+							if (unavailableDates.contains(date)) {
+								setDisable(true);
 
-				setDisable(empty || date.compareTo(today) < 0); // I am also excluding all days in the past
-				if (date != null && !empty) {
-
-					// Compare date to List
-					if (unavailableDates.contains(date)) {
-						setDisable(true);
-
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
-		this.releaseDatePicker.valueProperty()
-				.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());
+			}
+
+		});
 
 	}
 
