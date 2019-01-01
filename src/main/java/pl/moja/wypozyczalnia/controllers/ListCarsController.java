@@ -140,7 +140,12 @@ public class ListCarsController {
 						}
 						CarController controller = loader.getController();
 						controller.getCarModel().setCarFxObjectProperty(item);
-						controller.bindings();
+						try {
+							controller.bindings();
+						} catch (ApplicationException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 						Stage stage = new Stage();
 						stage.setScene(scene);

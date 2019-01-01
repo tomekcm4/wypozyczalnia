@@ -70,7 +70,7 @@ public class CarController implements InvalidationListener {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
-	public void initialize() {
+	public void initialize() throws ApplicationException {
 
 		this.carModel = new CarModel();
 		try {
@@ -113,7 +113,7 @@ public class CarController implements InvalidationListener {
 
 	}
 
-	public void bindings() {
+	public void bindings() throws ApplicationException {
 		this.segmentComboBox.setItems(this.carModel.getSegmentFxObservableList());
 		this.clientComboBox.setItems(this.carModel.getClientFxObservableList());
 
@@ -137,33 +137,38 @@ public class CarController implements InvalidationListener {
 				.bindBidirectional(this.carModel.getCarFxObjectProperty().releaseDateProperty());
 
 		List<LocalDate> unavailableDates = new ArrayList<>();
-		unavailableDates.add(LocalDate.parse("2019-01-01")); // for example
+		//unavailableDates.add(LocalDate.parse("2019-01-01"));
+
+		CarDao carDao = new CarDao();
+		List<Car> cars = carDao.queryForAll(Car.class);
+		carFxList.clear();
+		cars.forEach(car -> {
+			this.carFxList.add(ConverterCar.convertToCarFx(car));
+		});
 
 		vinTextField.textProperty().addListener(new ChangeListener<String>() {
-			
-			
-			
+
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
 				System.out.println(" Text Changed to  " + newValue);
 
-				for (CarFx car : carFxList) { // this part of code is not working, programs not iterating through this list
-					System.out.println("check if working"); //nothing happens						
+				for (CarFx car : carFxList) { // this part of code is not working, programs not iterating through this
+												// list
+					System.out.println("check if working"); // nothing happens
 
-					// System.out.println(vinTextField.getText());
-
-					
+					System.out.println(car.getVin());
 
 					if (car.getVin().equals(newValue)) {
 
 						LocalDate da = car.getReleaseDate();
+						da =da.minusDays(2);
 						int nr = car.getDays(); // number of days for which car is reserved
 
-						for (int i = 0; i < nr - 1; i++) {
+						for (int i = 0; i < nr; i++) {
 
-							da = da.plusDays(i);
-							unavailableDates.add(da.plusDays(i));
+							da = da.plusDays(1);
+							unavailableDates.add(da.plusDays(1));
 						}
 
 					}
