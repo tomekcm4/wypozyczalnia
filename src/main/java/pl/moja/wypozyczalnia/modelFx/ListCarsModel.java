@@ -29,6 +29,7 @@ public class ListCarsModel {
 
     private ObjectProperty<ClientFx> clientFxObjectProperty = new SimpleObjectProperty<>();
     private ObjectProperty<SegmentFx> segmentFxObjectProperty = new SimpleObjectProperty<>();
+    
 
     private List<CarFx> carFxList = new ArrayList<>();
 
@@ -116,9 +117,13 @@ public class ListCarsModel {
         return segmentFxObservableList;
     }
 
+ 
+
     public void setSegmentFxObservableList(ObservableList<SegmentFx> segmentFxObservableList) {
         this.segmentFxObservableList = segmentFxObservableList;
     }
+    
+    
 
     public ClientFx getClientFxObjectProperty() {
         return clientFxObjectProperty.get();

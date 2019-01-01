@@ -70,8 +70,6 @@ public class ListCarsController {
 		
 		
 		
-		
-		
 		this.clientComboBox.setItems(this.listCarsModel.getClientFxObservableList());
 		this.listCarsModel.segmentFxObjectPropertyProperty().bind(this.segmentComboBox.valueProperty());
 		this.listCarsModel.clientFxObjectPropertyProperty().bind(this.clientComboBox.valueProperty());

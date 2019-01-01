@@ -5,9 +5,11 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.xml.ws.handler.Handler;
 import javafx.beans.InvalidationListener;
@@ -60,9 +62,8 @@ public class CarController implements InvalidationListener {
 
 	double mulitplier;
 
+	private List<Car> cars = new ArrayList<>();
 	private List<CarFx> carFxList = new ArrayList<>();
-	private List<Car> Car = new ArrayList<>();
-	private List<ListCarsController> lcl = new ArrayList<>();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@FXML
@@ -123,35 +124,38 @@ public class CarController implements InvalidationListener {
 		this.daysSlider.valueProperty().bindBidirectional(this.carModel.getCarFxObjectProperty().daysProperty());
 
 		List<LocalDate> unavailableDates = new ArrayList<>();
-		unavailableDates.add(LocalDate.parse("2018-12-31")); // data wstawiona na probe czy dziala
+		unavailableDates.add(LocalDate.parse("2019-01-01")); // data wstawiona na probe czy dziala
 
 		vinTextField.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
-				System.out.println(" Text Changed to  " + newValue + ")\n");
+				System.out.println(" Text Changed to  " + newValue);
 
-			}
+				for (CarFx car : carFxList) {
 
-		});
+					System.out.println(vinTextField.getText());
 
-		for (CarFx lcs : carFxList) {
+					if (car.getVin().equals(newValue)) {
 
-			if (lcs.getVin().equals(vinTextField.getText())) {
+						LocalDate da = car.getReleaseDate();
+						// LocalDate daa = da.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+						int nr = car.getDays(); // number of days for which car is reserved
 
-				LocalDate da = lcs.getReleaseDate();
-				int nr = lcs.getDays(); // number of days for which car is reserved
+						for (int i = 0; i < nr - 1; i++) {
 
-				for (int i = 1; i < nr; i++) {
+							// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+							da = da.plusDays(i);
+							unavailableDates.add(da.plusDays(i));
+						}
 
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-					unavailableDates.add(da);
-					da.plusDays(i);
+					}
+
 				}
 
 			}
 
-		}
+		});
 
 		releaseDatePicker.setDayCellFactory(picker -> new DateCell() {
 			@Override
