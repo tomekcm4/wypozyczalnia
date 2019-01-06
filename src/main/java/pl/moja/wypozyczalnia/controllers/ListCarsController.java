@@ -65,11 +65,6 @@ public class ListCarsController {
 		}
 
 		this.segmentComboBox.setItems(this.listCarsModel.getSegmentFxObservableList());
-		
-		
-		
-		
-		
 		this.clientComboBox.setItems(this.listCarsModel.getClientFxObservableList());
 		this.listCarsModel.segmentFxObjectPropertyProperty().bind(this.segmentComboBox.valueProperty());
 		this.listCarsModel.clientFxObjectPropertyProperty().bind(this.clientComboBox.valueProperty());
@@ -88,7 +83,7 @@ public class ListCarsController {
 		this.deleteColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
 		this.editColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue()));
 
-	//	fillTableView();
+		// fillTableView();
 
 		this.deleteColumn.setCellFactory(param -> new TableCell<CarFx, CarFx>() {
 			Button button = createButton("/icons/delete.png");
@@ -98,7 +93,7 @@ public class ListCarsController {
 				super.updateItem(item, empty);
 
 				if (empty) {
-					
+
 					setGraphic(null);
 					return;
 				}
@@ -146,7 +141,7 @@ public class ListCarsController {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
+
 						Stage stage = new Stage();
 						stage.setScene(scene);
 						stage.initModality(Modality.APPLICATION_MODAL);
@@ -156,7 +151,6 @@ public class ListCarsController {
 			}
 		});
 
-		
 		clientColumn.setCellFactory(new Callback<TableColumn<CarFx, ClientFx>, TableCell<CarFx, ClientFx>>() {
 			public TableCell<CarFx, ClientFx> call(TableColumn<CarFx, ClientFx> carStringTableColumn) {
 				return new TableCell<CarFx, ClientFx>() {
@@ -188,43 +182,36 @@ public class ListCarsController {
 		}
 
 		);
-		
-		
-		
-	}
-	
-	
-	
-	
-	
 
-//	private TableCell<CarFx,String> fillTableView() {
-//
-//		clientColumn.setCellFactory(column -> {
-//			
-//			
-//			return new TableCell<CarFx, String>() {
-//				@Override
-//				protected void updateItem(String item, boolean empty) {
-//					super.updateItem(item, empty);
-//
-//					setText(empty ? "" : getItem().toString());
-//					setGraphic(null);
-//
-//					TableRow<CarFx> currentRow = getTableRow();
-//
-//					if (!isEmpty()) {
-//
-//						if (item.equals("EMPTY EMPTY"))
-//							currentRow.setStyle("-fx-background-color:green");
-//						else
-//							currentRow.setStyle("-fx-background-color:blue");
-//					}
-//				}
-//			};
-//		});
-//
-//	}
+	}
+
+	// private TableCell<CarFx,String> fillTableView() {
+	//
+	// clientColumn.setCellFactory(column -> {
+	//
+	//
+	// return new TableCell<CarFx, String>() {
+	// @Override
+	// protected void updateItem(String item, boolean empty) {
+	// super.updateItem(item, empty);
+	//
+	// setText(empty ? "" : getItem().toString());
+	// setGraphic(null);
+	//
+	// TableRow<CarFx> currentRow = getTableRow();
+	//
+	// if (!isEmpty()) {
+	//
+	// if (item.equals("EMPTY EMPTY"))
+	// currentRow.setStyle("-fx-background-color:green");
+	// else
+	// currentRow.setStyle("-fx-background-color:blue");
+	// }
+	// }
+	// };
+	// });
+	//
+	// }
 
 	private Button createButton(String path) {
 		Button button = new Button();
@@ -236,6 +223,39 @@ public class ListCarsController {
 
 	public void filterOnActionComboBox() {
 		this.listCarsModel.filterCarsList();
+
+		clientColumn.setCellFactory(new Callback<TableColumn<CarFx, ClientFx>, TableCell<CarFx, ClientFx>>() {
+			public TableCell<CarFx, ClientFx> call(TableColumn<CarFx, ClientFx> carStringTableColumn) {
+				return new TableCell<CarFx, ClientFx>() {
+					@Override
+					protected void updateItem(ClientFx item, boolean empty) {
+						super.updateItem(item, empty);
+
+						setText(empty ? "" : getItem().toString());
+						setGraphic(null);
+
+						TableRow<CarFx> currentRow = getTableRow();
+
+						if (!isEmpty()) {
+
+							if (item.getName().equals("EMPTY") || item.getSurname().equals("EMPTY")) {
+								currentRow.setStyle("-fx-background-color:#9ACD32");
+							}
+
+							else {
+								currentRow.setStyle("-fx-background-color:#CD5C5C");
+							}
+
+						}
+					};
+
+				};
+
+			}
+		}
+
+		);
+
 	}
 
 	public void clearSegmentComboBox() {

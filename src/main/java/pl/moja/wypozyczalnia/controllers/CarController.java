@@ -151,6 +151,8 @@ public class CarController implements InvalidationListener {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
+				if(newValue.length() == 17) {
+				
 				System.out.println(" Text Changed to  " + newValue);
 
 				for (CarFx car : carFxList) { // this part of code is not working, programs not iterating through this
@@ -194,6 +196,9 @@ public class CarController implements InvalidationListener {
 				});
 
 			}
+			
+			
+		}
 
 		});
 
