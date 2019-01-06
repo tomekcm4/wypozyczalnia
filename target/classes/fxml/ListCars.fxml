@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -14,11 +16,25 @@
 		<HBox prefHeight="58.0" prefWidth="600.0" spacing="10.0">
 			<children>
 				<Label text="%segment.car" />
-				<ComboBox fx:id="segmentComboBox" onAction="#filterOnActionComboBox" prefWidth="150.0" />
-				<Button mnemonicParsing="false" onAction="#clearSegmentComboBox" text="x" />
+				<ComboBox fx:id="segmentComboBox" onAction="#filterOnActionComboBox" prefWidth="150.0">
+               <effect>
+                  <ColorAdjust>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </ColorAdjust>
+               </effect></ComboBox>
+				<Button mnemonicParsing="false" onAction="#clearSegmentComboBox" style="-fx-background-color: #FFDEAD;" text="X" />
 				<Label text="%client.car" />
-				<ComboBox fx:id="clientComboBox" onAction="#filterOnActionComboBox" prefWidth="150.0" />
-				<Button mnemonicParsing="false" onAction="#clearClientComboBox" text="x" />
+				<ComboBox fx:id="clientComboBox" onAction="#filterOnActionComboBox" prefWidth="150.0">
+               <effect>
+                  <ColorAdjust>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </ColorAdjust>
+               </effect></ComboBox>
+				<Button mnemonicParsing="false" onAction="#clearClientComboBox" style="-fx-background-color: #FFDEAD;" text="X" />
 			</children>
 			<padding>
 				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
