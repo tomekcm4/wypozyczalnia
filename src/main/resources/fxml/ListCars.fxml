@@ -24,7 +24,7 @@
                      </input>
                   </ColorAdjust>
                </effect></ComboBox>
-				<Button mnemonicParsing="false" onAction="#clearSegmentComboBox" style="-fx-background-color: #FFDEAD;" text="X" />
+				<Button mnemonicParsing="false" onAction="#clearSegmentComboBox" style="-fx-background-color: #FFDEAD; " text="X" />
 				<Label text="%client.car" />
 				<ComboBox fx:id="clientComboBox" onAction="#filterOnActionComboBox" prefWidth="150.0">
                <effect>

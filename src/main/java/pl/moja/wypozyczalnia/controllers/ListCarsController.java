@@ -165,7 +165,7 @@ public class ListCarsController {
 
 						if (!isEmpty()) {
 
-							if (item.getName().equals("EMPTY") || item.getSurname().equals("EMPTY")) {
+							if (item.getName().equals("NOT") || item.getSurname().equals("ASSIGNED")) {
 								currentRow.setStyle("-fx-background-color:#9ACD32");
 							}
 
@@ -238,7 +238,7 @@ public class ListCarsController {
 
 						if (!isEmpty()) {
 
-							if (item.getName().equals("EMPTY") || item.getSurname().equals("EMPTY")) {
+							if (item.getName().equals("NOT") || item.getSurname().equals("ASSIGNED")) {
 								currentRow.setStyle("-fx-background-color:#9ACD32");
 							}
 
