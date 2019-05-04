@@ -22,9 +22,9 @@ public class DbManager {
   //  private static final String USER = "admin";
   //  private static final String PASS = "admin";
 
-    private static final String JDBC_DRIVER_HD = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7270820";
-    private static final String USER = "sql7270820";
-    private static final String PASS = "C62YG6pa3q";
+    private static final String JDBC_DRIVER_HD = "jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7290533";
+    private static final String USER = "sql7290533";
+    private static final String PASS = "X7qW2D6uLq";
     
     
     private static ConnectionSource connectionSource;

@@ -28,23 +28,22 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 
-
-		LauncherImpl.launchApplication(Main.class, MyPreloader.class, args);
-		// launch(args);
+		//LauncherImpl.launchApplication(Main.class, MyPreloader.class, args);
+		launch(args);
 
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
-		
-		
+
+
 		//Locale.setDefault(Locale.FRANCE);
 		this.primaryStage = primaryStage;
 		load();
 		this.primaryStage.show();
 		DbManager.initDatabase();
 
-		// FillDatabase.fillDatabase();
+		//FillDatabase.fillDatabase();
 		// FillDatabase.fillDatabase(); // w tym miejscu uruchamiam dodatkowy kod, który
 		// wypełnia bazę danych
 	}
@@ -75,7 +74,7 @@ public class Main extends Application {
 		for (int i = 1; i <= COUNT_LIMIT; i++) {
 			double progress = (double) i / 10;
 			System.out.println("progress: " + progress);
-			LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(progress));
+			//LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(progress));
 			Thread.sleep(50);
 
 		}
